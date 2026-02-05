@@ -22,3 +22,7 @@ You will find binaries inside the `cmd/virel-node` and `cmd/virel-wallet-cli` di
 ## Current phase
 The Virel Blockchain is under active development. The current phase is "public stagenet": there *might be* be breaking changes, but you can run the Virel node and connet to the global stagenet.
 The mainnet is expected in August 2025, but might be delayed if deemed necessary.
+
+## Known Issues
+
+- **TODO:** SIGSEGV when LMDB mapsize increases during sync (512MB → 1024MB). [upstream#6](https://github.com/virel-project/virel-blockchain/issues/6)
