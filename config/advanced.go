@@ -25,7 +25,7 @@ const WALLET_PREFIX = "v" // Wallet prefix should be the same for all merge mine
 
 // True if the current chain is a Master Chain; if false, the node will try connecting to the masterchain
 // node to send Merge Mining jobs
-const IS_MASTERCHAIN = NETWORK_ID == 0xd38dab1d4676d0c5 // do not change this
+const IS_MASTERCHAIN = true
 
 const PARALLEL_BLOCKS_DOWNLOAD = 50
 

@@ -11,7 +11,7 @@ import (
 var bin []byte
 
 // checkpoints generated with: create_checkpoints 346214
-const CHECKPOINTS_BLAKE3 = "949471a0afe0ce6d2dd379ac82972790aeb40bdea426826aa0561e8d593be7aa"
+const CHECKPOINTS_BLAKE3 = "af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262"
 
 const checkpoint_overhead = 4
 
