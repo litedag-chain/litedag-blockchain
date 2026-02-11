@@ -196,6 +196,7 @@ func (a *Integrated) UnmarshalJSON(c []byte) error {
 }
 
 var GenesisAddress Address
+var BlockedAddresses []Address
 
 func init() {
 	addr, err := FromString(config.GENESIS_ADDRESS)
@@ -203,6 +204,23 @@ func init() {
 		panic(err)
 	}
 	GenesisAddress = addr.Addr
+
+	for _, s := range config.BLOCKED_ADDRESSES {
+		a, err := FromString(s)
+		if err != nil {
+			panic(fmt.Sprintf("invalid blocked address %q: %v", s, err))
+		}
+		BlockedAddresses = append(BlockedAddresses, a.Addr)
+	}
+}
+
+func IsBlocked(a Address) bool {
+	for _, blocked := range BlockedAddresses {
+		if a == blocked {
+			return true
+		}
+	}
+	return false
 }
 
 func Uint64ToCompactLittleEndian(n uint64) []byte {

@@ -163,6 +163,10 @@ func (bc *Blockchain) validateMempoolTx(txn adb.Txn, tx *transaction.Transaction
 
 	signer := address.FromPubKey(tx.Signer)
 
+	if address.IsBlocked(signer) {
+		return fmt.Errorf("transactions from %s are blocked", signer)
+	}
+
 	// Calculate total transaction amount (outputs + fee)
 	_, err := tx.TotalAmount()
 	if err != nil {

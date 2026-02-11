@@ -20,6 +20,8 @@ const TEAM_STAKE_PUBKEY = "3959a30cb83649dd38389dd6717cbadab6ceb92cd9e4c4352abfc
 
 var SEED_NODES = []string{"127.0.0.1"}
 
+var BLOCKED_ADDRESSES = []string{}
+
 // PROOF OF STAKE
 const MIN_STAKE_AMOUNT = 1 * COIN
 const REGISTER_DELEGATE_BURN = 1 * COIN

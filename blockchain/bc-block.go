@@ -6,6 +6,7 @@ import (
 
 	"github.com/virel-project/go-randomvirel"
 	"github.com/virel-project/virel-blockchain/v3/adb"
+	"github.com/virel-project/virel-blockchain/v3/address"
 	"github.com/virel-project/virel-blockchain/v3/binary"
 	"github.com/virel-project/virel-blockchain/v3/block"
 	"github.com/virel-project/virel-blockchain/v3/checkpoints"
@@ -85,6 +86,9 @@ func (bc *Blockchain) PrevalidateBlock(b *block.Block, txs []*transaction.Transa
 	}
 
 	for _, tx := range txs {
+		if address.IsBlocked(address.FromPubKey(tx.Signer)) {
+			return fmt.Errorf("transaction from blocked address in block %d", b.Height)
+		}
 		err := tx.Prevalidate(b.Height)
 		if err != nil {
 			return fmt.Errorf("invalid transaction: %w", err)
