@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/virel-project/virel-blockchain/v3/adb"
+	"github.com/litedag-chain/litedag-blockchain/v3/adb"
 
 	bolt "go.etcd.io/bbolt"
 )

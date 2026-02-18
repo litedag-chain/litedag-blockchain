@@ -7,8 +7,8 @@ import (
 	"path/filepath"
 	"sync"
 
-	"github.com/virel-project/virel-blockchain/v3/adb"
-	"github.com/virel-project/virel-blockchain/v3/logger"
+	"github.com/litedag-chain/litedag-blockchain/v3/adb"
+	"github.com/litedag-chain/litedag-blockchain/v3/logger"
 
 	lmdb "github.com/PowerDNS/lmdb-go/lmdb"
 )

@@ -3,10 +3,10 @@ package block
 import (
 	"fmt"
 
-	"github.com/virel-project/virel-blockchain/v3/address"
-	"github.com/virel-project/virel-blockchain/v3/bitcrypto"
-	"github.com/virel-project/virel-blockchain/v3/config"
-	"github.com/virel-project/virel-blockchain/v3/transaction"
+	"github.com/litedag-chain/litedag-blockchain/v3/address"
+	"github.com/litedag-chain/litedag-blockchain/v3/bitcrypto"
+	"github.com/litedag-chain/litedag-blockchain/v3/config"
+	"github.com/litedag-chain/litedag-blockchain/v3/transaction"
 )
 
 // CoinbaseReward is a virtual transaction type: it is invalid for the network, but it is used

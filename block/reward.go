@@ -1,7 +1,7 @@
 package block
 
 import (
-	"github.com/virel-project/virel-blockchain/v3/config"
+	"github.com/litedag-chain/litedag-blockchain/v3/config"
 )
 
 func reduce(n, count uint64) uint64 {

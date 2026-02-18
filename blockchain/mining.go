@@ -6,15 +6,15 @@ import (
 	"math"
 	"time"
 
-	"github.com/virel-project/go-randomvirel"
-	"github.com/virel-project/virel-blockchain/v3/adb"
-	"github.com/virel-project/virel-blockchain/v3/address"
-	"github.com/virel-project/virel-blockchain/v3/block"
-	"github.com/virel-project/virel-blockchain/v3/config"
-	"github.com/virel-project/virel-blockchain/v3/stratum"
-	"github.com/virel-project/virel-blockchain/v3/transaction"
-	"github.com/virel-project/virel-blockchain/v3/util"
-	"github.com/virel-project/virel-blockchain/v3/util/uint128"
+	"github.com/litedag-chain/go-randomlitedag"
+	"github.com/litedag-chain/litedag-blockchain/v3/adb"
+	"github.com/litedag-chain/litedag-blockchain/v3/address"
+	"github.com/litedag-chain/litedag-blockchain/v3/block"
+	"github.com/litedag-chain/litedag-blockchain/v3/config"
+	"github.com/litedag-chain/litedag-blockchain/v3/stratum"
+	"github.com/litedag-chain/litedag-blockchain/v3/transaction"
+	"github.com/litedag-chain/litedag-blockchain/v3/util"
+	"github.com/litedag-chain/litedag-blockchain/v3/util/uint128"
 )
 
 func (bc *Blockchain) StartMining(addr address.Address) {
@@ -285,7 +285,7 @@ func (bc *Blockchain) findBlockSolution(bl *block.Block, min_diff Uint128) {
 			seed = mb.GetSeed()
 		}
 
-		pow := randomvirel.PowHash(seed, mb.Serialize())
+		pow := randomlitedag.PowHash(seed, mb.Serialize())
 		powHash := [16]byte(pow[16:])
 		if block.ValidPowHash(powHash, min_diff) {
 			_, err := bc.blockFound(bl, powHash)

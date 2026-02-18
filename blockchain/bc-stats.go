@@ -8,10 +8,10 @@ import (
 	"io"
 	"time"
 
-	"github.com/virel-project/virel-blockchain/v3/address"
-	"github.com/virel-project/virel-blockchain/v3/transaction"
-	"github.com/virel-project/virel-blockchain/v3/util"
-	"github.com/virel-project/virel-blockchain/v3/util/uint128"
+	"github.com/litedag-chain/litedag-blockchain/v3/address"
+	"github.com/litedag-chain/litedag-blockchain/v3/transaction"
+	"github.com/litedag-chain/litedag-blockchain/v3/util"
+	"github.com/litedag-chain/litedag-blockchain/v3/util/uint128"
 )
 
 type Stats struct {

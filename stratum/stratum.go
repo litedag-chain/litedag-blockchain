@@ -1,15 +1,15 @@
 package stratum
 
 import (
-	"github.com/virel-project/virel-blockchain/v3/util/enc"
-	"github.com/virel-project/virel-blockchain/v3/util/uint128"
+	"github.com/litedag-chain/litedag-blockchain/v3/util/enc"
+	"github.com/litedag-chain/litedag-blockchain/v3/util/uint128"
 )
 
-// Virel follows the XMRig Stratum Mining Protocol as described here:
+// LiteDAG follows the XMRig Stratum Mining Protocol as described here:
 // https://github.com/xmrig/xmrig-proxy/blob/master/doc/STRATUM.md
 
 type Job struct {
-	Algo     string  `json:"algo"`   // algorithm name, for Virel it's rx/vrl
+	Algo     string  `json:"algo"`   // algorithm name, for LiteDAG it's rx/litedag
 	Blob     enc.Hex `json:"blob"`   // this is the MiningBlob
 	JobID    string  `json:"job_id"` // random string, different for each job
 	Target   enc.Hex `json:"target"` // can be 4 or 8 bytes, example: b88d0600

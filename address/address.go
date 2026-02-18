@@ -9,8 +9,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/virel-project/virel-blockchain/v3/bitcrypto"
-	"github.com/virel-project/virel-blockchain/v3/config"
+	"github.com/litedag-chain/litedag-blockchain/v3/bitcrypto"
+	"github.com/litedag-chain/litedag-blockchain/v3/config"
 
 	"github.com/zeebo/blake3"
 )
@@ -214,6 +214,14 @@ func init() {
 	}
 }
 
+// IsBlocked returns true if the address is in BLOCKED_ADDRESSES.
+// Blocked addresses cannot submit ANY transaction type: transfers, register_delegate,
+// set_delegate, stake, unstake. The check runs in validateMempoolTx (bc-txn.go) and
+// block validation (bc-block.go) against tx.Signer, so only outbound actions are blocked.
+// Receiving LDG still works — the sender's signer is checked, not the recipient.
+// Effectively a one-way burn: funds go in, nothing comes out.
+//
+// Verified on testnet 2026-02-11: transfer rejected, register_delegate rejected.
 func IsBlocked(a Address) bool {
 	for _, blocked := range BlockedAddresses {
 		if a == blocked {

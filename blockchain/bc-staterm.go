@@ -4,11 +4,11 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/virel-project/virel-blockchain/v3/adb"
-	"github.com/virel-project/virel-blockchain/v3/address"
-	"github.com/virel-project/virel-blockchain/v3/block"
-	"github.com/virel-project/virel-blockchain/v3/transaction"
-	"github.com/virel-project/virel-blockchain/v3/util"
+	"github.com/litedag-chain/litedag-blockchain/v3/adb"
+	"github.com/litedag-chain/litedag-blockchain/v3/address"
+	"github.com/litedag-chain/litedag-blockchain/v3/block"
+	"github.com/litedag-chain/litedag-blockchain/v3/transaction"
+	"github.com/litedag-chain/litedag-blockchain/v3/util"
 )
 
 // Note: In case of error, the database transaction `txn` should be reversed.

@@ -6,16 +6,16 @@ import (
 	"strings"
 	"time"
 
-	"github.com/virel-project/virel-blockchain/v3/adb"
-	"github.com/virel-project/virel-blockchain/v3/address"
-	"github.com/virel-project/virel-blockchain/v3/binary"
-	"github.com/virel-project/virel-blockchain/v3/bitcrypto"
-	"github.com/virel-project/virel-blockchain/v3/chaintype"
-	"github.com/virel-project/virel-blockchain/v3/config"
-	"github.com/virel-project/virel-blockchain/v3/p2p"
-	"github.com/virel-project/virel-blockchain/v3/p2p/packet"
-	"github.com/virel-project/virel-blockchain/v3/transaction"
-	"github.com/virel-project/virel-blockchain/v3/util"
+	"github.com/litedag-chain/litedag-blockchain/v3/adb"
+	"github.com/litedag-chain/litedag-blockchain/v3/address"
+	"github.com/litedag-chain/litedag-blockchain/v3/binary"
+	"github.com/litedag-chain/litedag-blockchain/v3/bitcrypto"
+	"github.com/litedag-chain/litedag-blockchain/v3/chaintype"
+	"github.com/litedag-chain/litedag-blockchain/v3/config"
+	"github.com/litedag-chain/litedag-blockchain/v3/p2p"
+	"github.com/litedag-chain/litedag-blockchain/v3/p2p/packet"
+	"github.com/litedag-chain/litedag-blockchain/v3/transaction"
+	"github.com/litedag-chain/litedag-blockchain/v3/util"
 )
 
 // Adds a transaction to mempool.

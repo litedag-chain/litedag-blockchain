@@ -13,14 +13,16 @@ const MIN_DIFFICULTY = 100_000
 const DIFFICULTY_N = 120 // DAA half-life (30 minutes).
 
 // GENESIS BLOCK INFO
-const GENESIS_ADDRESS = "v139diixrpv0ftmip4mgpuy92u51iq4pnmgjsfn"
-const GENESIS_TIMESTAMP = 1755522000 * 1000
+const GENESIS_ADDRESS = "v139diixrpv0ftmip4mgpuy92u51iq4pnmgjsfn"   // FIXME: replace with client wallet address (key ceremony)
+const GENESIS_TIMESTAMP = 1755522000 * 1000                          // FIXME: replace with launch timestamp
 const BLOCK_REWARD_FEE_PERCENT = 10
-const TEAM_STAKE_PUBKEY = "3959a30cb83649dd38389dd6717cbadab6ceb92cd9e4c4352abfcf168bbf592e"
+const TEAM_STAKE_PUBKEY = "3959a30cb83649dd38389dd6717cbadab6ceb92cd9e4c4352abfcf168bbf592e" // FIXME: replace with client staking pubkey (key ceremony)
 
-var SEED_NODES = []string{"127.0.0.1"}
+var SEED_NODES = []string{"127.0.0.1"} // FIXME: replace with production node IPs
 
-// Addresses blocked from sending transactions (old Virel treasury, key not accessible)
+// Addresses blocked from ALL transactions (transfers, staking, delegate ops).
+// Only outbound (signer) is checked — receiving LDG still works, making these burn addresses.
+// Old Virel treasury: key not accessible, funds permanently locked.
 var BLOCKED_ADDRESSES = []string{"v139diixrpv0ftmip4mgpuy92u51iq4pnmgjsfn"}
 
 // PROOF OF STAKE
@@ -35,6 +37,6 @@ const STAKE_UNLOCK_TIME = 60 * 60 * 24 * 30 * 2 / TARGET_BLOCK_TIME // staked fu
 const HARDFORK_V2_HEIGHT = 1
 
 // Hardfork V3: Hybrid PoW/PoS.
-// Hardfork date set for 2025-09-27 13:25:00 GMT.
+// Active from genesis (height 1) on LiteDAG chain.
 // Tx version: 1-5, block version: 1
 const HARDFORK_V3_HEIGHT = 1

@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"encoding/json"
 
-	"github.com/virel-project/virel-blockchain/v3/logger"
+	"github.com/litedag-chain/litedag-blockchain/v3/logger"
 )
 
 var Log *logger.Log = logger.DiscardLog

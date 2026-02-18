@@ -5,23 +5,23 @@ import (
 	"os"
 	"testing"
 
-	"github.com/virel-project/virel-blockchain/v3/adb"
-	"github.com/virel-project/virel-blockchain/v3/adb/lmdb"
-	"github.com/virel-project/virel-blockchain/v3/address"
-	"github.com/virel-project/virel-blockchain/v3/block"
-	"github.com/virel-project/virel-blockchain/v3/blockchain"
-	"github.com/virel-project/virel-blockchain/v3/chaintype"
-	"github.com/virel-project/virel-blockchain/v3/config"
-	"github.com/virel-project/virel-blockchain/v3/logger"
-	"github.com/virel-project/virel-blockchain/v3/transaction"
-	"github.com/virel-project/virel-blockchain/v3/util"
-	"github.com/virel-project/virel-blockchain/v3/util/uint128"
-	"github.com/virel-project/virel-blockchain/v3/wallet"
+	"github.com/litedag-chain/litedag-blockchain/v3/adb"
+	"github.com/litedag-chain/litedag-blockchain/v3/adb/lmdb"
+	"github.com/litedag-chain/litedag-blockchain/v3/address"
+	"github.com/litedag-chain/litedag-blockchain/v3/block"
+	"github.com/litedag-chain/litedag-blockchain/v3/blockchain"
+	"github.com/litedag-chain/litedag-blockchain/v3/chaintype"
+	"github.com/litedag-chain/litedag-blockchain/v3/config"
+	"github.com/litedag-chain/litedag-blockchain/v3/logger"
+	"github.com/litedag-chain/litedag-blockchain/v3/transaction"
+	"github.com/litedag-chain/litedag-blockchain/v3/util"
+	"github.com/litedag-chain/litedag-blockchain/v3/util/uint128"
+	"github.com/litedag-chain/litedag-blockchain/v3/wallet"
 )
 
 func getAppTempDir() string {
 	tempDir := os.TempDir()
-	appTempDir := tempDir + "/vireltestdir"
+	appTempDir := tempDir + "/litedagtestdir"
 
 	os.RemoveAll(appTempDir)
 

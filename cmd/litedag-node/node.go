@@ -8,12 +8,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/virel-project/virel-blockchain/v3/adb"
-	"github.com/virel-project/virel-blockchain/v3/adb/lmdb"
-	"github.com/virel-project/virel-blockchain/v3/blockchain"
-	"github.com/virel-project/virel-blockchain/v3/config"
-	"github.com/virel-project/virel-blockchain/v3/logger"
-	"github.com/virel-project/virel-blockchain/v3/util/updatechecker"
+	"github.com/litedag-chain/litedag-blockchain/v3/adb"
+	"github.com/litedag-chain/litedag-blockchain/v3/adb/lmdb"
+	"github.com/litedag-chain/litedag-blockchain/v3/blockchain"
+	"github.com/litedag-chain/litedag-blockchain/v3/config"
+	"github.com/litedag-chain/litedag-blockchain/v3/logger"
+	"github.com/litedag-chain/litedag-blockchain/v3/util/updatechecker"
 )
 
 var Log = logger.New()

@@ -4,15 +4,15 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/virel-project/go-randomvirel"
-	"github.com/virel-project/virel-blockchain/v3/adb"
-	"github.com/virel-project/virel-blockchain/v3/address"
-	"github.com/virel-project/virel-blockchain/v3/binary"
-	"github.com/virel-project/virel-blockchain/v3/block"
-	"github.com/virel-project/virel-blockchain/v3/checkpoints"
-	"github.com/virel-project/virel-blockchain/v3/config"
-	"github.com/virel-project/virel-blockchain/v3/transaction"
-	"github.com/virel-project/virel-blockchain/v3/util"
+	"github.com/litedag-chain/go-randomlitedag"
+	"github.com/litedag-chain/litedag-blockchain/v3/adb"
+	"github.com/litedag-chain/litedag-blockchain/v3/address"
+	"github.com/litedag-chain/litedag-blockchain/v3/binary"
+	"github.com/litedag-chain/litedag-blockchain/v3/block"
+	"github.com/litedag-chain/litedag-blockchain/v3/checkpoints"
+	"github.com/litedag-chain/litedag-blockchain/v3/config"
+	"github.com/litedag-chain/litedag-blockchain/v3/transaction"
+	"github.com/litedag-chain/litedag-blockchain/v3/util"
 )
 
 func (bc *Blockchain) SerializeFullBlock(txn adb.Txn, b *block.Block) ([]byte, error) {
@@ -114,7 +114,7 @@ func (bc *Blockchain) PrevalidateBlock(b *block.Block, txs []*transaction.Transa
 		commitment := b.Commitment()
 		mb := commitment.MiningBlob()
 		seed := mb.GetSeed()
-		powhash := randomvirel.PowHash(mb.GetSeed(), mb.Serialize())
+		powhash := randomlitedag.PowHash(mb.GetSeed(), mb.Serialize())
 		if !block.ValidPowHash32(powhash, b.Difficulty) {
 			return fmt.Errorf("block %d %x with PoW %x does not meet difficulty", b.Height, b.Hash(), powhash)
 		}
@@ -129,7 +129,7 @@ func (bc *Blockchain) PrevalidateBlock(b *block.Block, txs []*transaction.Transa
 				return fmt.Errorf("side block has a different seedhash")
 			}
 			// verify that side block's difficulty is at least 2/3 of current block difficulty
-			if !block.ValidPowHash32(randomvirel.PowHash(seed, side.MiningBlob().Serialize()), b.Difficulty.Mul64(2).Div64(3)) {
+			if !block.ValidPowHash32(randomlitedag.PowHash(seed, side.MiningBlob().Serialize()), b.Difficulty.Mul64(2).Div64(3)) {
 				return fmt.Errorf("commitment does not meet difficulty")
 			}
 		}

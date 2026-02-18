@@ -2,7 +2,7 @@ package config
 
 import "time"
 
-const NAME = "vipa"
+const NAME = "litedag"
 
 const VERSION_MAJOR = 3
 const VERSION_MINOR = 1
@@ -40,6 +40,6 @@ const MAX_SIDE_BLOCKS = 2   // max number of side blocks that can be referenced 
 
 const MAX_OUTPUTS = 32 // max output count for a transaction
 
-const UPDATE_CHECK_URL = "https://api.github.com/repos/vipa-network/virel-blockchain/releases/latest"
+const UPDATE_CHECK_URL = "https://api.github.com/repos/litedag-chain/litedag-blockchain/releases/latest"
 
 const DELEGATE_ADDRESS_PREFIX = "delegate"

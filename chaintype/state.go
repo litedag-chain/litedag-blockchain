@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/virel-project/virel-blockchain/v3/binary"
+	"github.com/litedag-chain/litedag-blockchain/v3/binary"
 )
 
 type State struct {

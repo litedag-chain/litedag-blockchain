@@ -6,12 +6,12 @@ import (
 	"os"
 	"strings"
 
-	"github.com/virel-project/virel-blockchain/v3/address"
-	"github.com/virel-project/virel-blockchain/v3/config"
-	"github.com/virel-project/virel-blockchain/v3/logger"
-	"github.com/virel-project/virel-blockchain/v3/util"
-	"github.com/virel-project/virel-blockchain/v3/util/updatechecker"
-	"github.com/virel-project/virel-blockchain/v3/wallet"
+	"github.com/litedag-chain/litedag-blockchain/v3/address"
+	"github.com/litedag-chain/litedag-blockchain/v3/config"
+	"github.com/litedag-chain/litedag-blockchain/v3/logger"
+	"github.com/litedag-chain/litedag-blockchain/v3/util"
+	"github.com/litedag-chain/litedag-blockchain/v3/util/updatechecker"
+	"github.com/litedag-chain/litedag-blockchain/v3/wallet"
 
 	"github.com/ergochat/readline"
 )
@@ -165,7 +165,7 @@ func main() {
 
 	Log.SetLogLevel(uint8(*log_level))
 
-	Log.Infof("Starting Virel Wallet CLI v%v.%v.%v", config.VERSION_MAJOR, config.VERSION_MINOR, config.VERSION_PATCH)
+	Log.Infof("Starting LiteDAG Wallet CLI v%v.%v.%v", config.VERSION_MAJOR, config.VERSION_MINOR, config.VERSION_PATCH)
 
 	go updatechecker.RunUpdateChecker(Log, config.UPDATE_CHECK_URL, config.VERSION_MAJOR, config.VERSION_MINOR, config.VERSION_PATCH)
 

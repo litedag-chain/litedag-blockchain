@@ -5,15 +5,15 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/virel-project/virel-blockchain/v3/address"
-	"github.com/virel-project/virel-blockchain/v3/config"
-	"github.com/virel-project/virel-blockchain/v3/rpc"
-	"github.com/virel-project/virel-blockchain/v3/rpc/rpcserver"
-	"github.com/virel-project/virel-blockchain/v3/rpc/walletrpc"
-	"github.com/virel-project/virel-blockchain/v3/transaction"
-	"github.com/virel-project/virel-blockchain/v3/util"
-	"github.com/virel-project/virel-blockchain/v3/util/ratelimit"
-	"github.com/virel-project/virel-blockchain/v3/wallet"
+	"github.com/litedag-chain/litedag-blockchain/v3/address"
+	"github.com/litedag-chain/litedag-blockchain/v3/config"
+	"github.com/litedag-chain/litedag-blockchain/v3/rpc"
+	"github.com/litedag-chain/litedag-blockchain/v3/rpc/rpcserver"
+	"github.com/litedag-chain/litedag-blockchain/v3/rpc/walletrpc"
+	"github.com/litedag-chain/litedag-blockchain/v3/transaction"
+	"github.com/litedag-chain/litedag-blockchain/v3/util"
+	"github.com/litedag-chain/litedag-blockchain/v3/util/ratelimit"
+	"github.com/litedag-chain/litedag-blockchain/v3/wallet"
 )
 
 type RpcServer struct {

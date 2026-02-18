@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/virel-project/virel-blockchain/v3/address"
-	"github.com/virel-project/virel-blockchain/v3/rpc/daemonrpc"
-	"github.com/virel-project/virel-blockchain/v3/wallet"
+	"github.com/litedag-chain/litedag-blockchain/v3/address"
+	"github.com/litedag-chain/litedag-blockchain/v3/rpc/daemonrpc"
+	"github.com/litedag-chain/litedag-blockchain/v3/wallet"
 )
 
 func staker(w *wallet.Wallet, delegateAddress address.Address) {

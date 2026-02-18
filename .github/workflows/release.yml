@@ -36,27 +36,27 @@ jobs:
         run: |
           # Create output directory
           mkdir -p bin/linux-amd64
-          
+
           # Build both binaries
-          GOOS=linux GOARCH=amd64 go build -o bin/linux-amd64/virel-node ./cmd/virel-node
-          GOOS=linux GOARCH=amd64 go build -o bin/linux-amd64/virel-wallet-cli ./cmd/virel-wallet-cli
-          
+          GOOS=linux GOARCH=amd64 go build -o bin/linux-amd64/litedag-node ./cmd/litedag-node
+          GOOS=linux GOARCH=amd64 go build -o bin/linux-amd64/litedag-wallet-cli ./cmd/litedag-wallet-cli
+
           # Create archive with both binaries
-          tar -czf "bin/virel-linux-amd64-${{ env.TAG_VERSION }}.tar.gz" -C bin/linux-amd64 .
+          tar -czf "bin/litedag-linux-amd64-${{ env.TAG_VERSION }}.tar.gz" -C bin/linux-amd64 .
 
       - name: Build for Windows amd64
         run: |
           # Create output directory
           mkdir -p bin/windows-amd64
-          
+
           # Build both binaries
           GOOS=windows GOARCH=amd64 CC=x86_64-w64-mingw32-gcc CGO_ENABLED=1 \
-            go build -o bin/windows-amd64/virel-node.exe ./cmd/virel-node
+            go build -o bin/windows-amd64/litedag-node.exe ./cmd/litedag-node
           GOOS=windows GOARCH=amd64 CC=x86_64-w64-mingw32-gcc CGO_ENABLED=1 \
-            go build -o bin/windows-amd64/virel-wallet-cli.exe ./cmd/virel-wallet-cli
-          
+            go build -o bin/windows-amd64/litedag-wallet-cli.exe ./cmd/litedag-wallet-cli
+
           # Create archive with both binaries
-          zip -j "bin/virel-windows-amd64-${{ env.TAG_VERSION }}.zip" bin/windows-amd64/*.exe
+          zip -j "bin/litedag-windows-amd64-${{ env.TAG_VERSION }}.zip" bin/windows-amd64/*.exe
 
       - name: Create Release
         env:
@@ -65,5 +65,5 @@ jobs:
           gh release create ${{ github.ref_name }}
           --generate-notes
           --title "Version ${{ github.ref_name }}"
-          bin/virel-linux-amd64-${{ env.TAG_VERSION }}.tar.gz
-          bin/virel-windows-amd64-${{ env.TAG_VERSION }}.zip
+          bin/litedag-linux-amd64-${{ env.TAG_VERSION }}.tar.gz
+          bin/litedag-windows-amd64-${{ env.TAG_VERSION }}.zip

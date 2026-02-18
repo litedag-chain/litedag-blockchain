@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/virel-project/virel-blockchain/v3/rpc"
+	"github.com/litedag-chain/litedag-blockchain/v3/rpc"
 )
 
 type Context struct {

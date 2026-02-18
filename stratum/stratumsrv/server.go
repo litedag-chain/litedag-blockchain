@@ -9,16 +9,16 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/virel-project/virel-blockchain/v3/address"
-	"github.com/virel-project/virel-blockchain/v3/block"
-	"github.com/virel-project/virel-blockchain/v3/config"
-	"github.com/virel-project/virel-blockchain/v3/logger"
-	"github.com/virel-project/virel-blockchain/v3/rpc"
-	"github.com/virel-project/virel-blockchain/v3/stratum"
-	"github.com/virel-project/virel-blockchain/v3/util"
-	"github.com/virel-project/virel-blockchain/v3/util/uint128"
+	"github.com/litedag-chain/litedag-blockchain/v3/address"
+	"github.com/litedag-chain/litedag-blockchain/v3/block"
+	"github.com/litedag-chain/litedag-blockchain/v3/config"
+	"github.com/litedag-chain/litedag-blockchain/v3/logger"
+	"github.com/litedag-chain/litedag-blockchain/v3/rpc"
+	"github.com/litedag-chain/litedag-blockchain/v3/stratum"
+	"github.com/litedag-chain/litedag-blockchain/v3/util"
+	"github.com/litedag-chain/litedag-blockchain/v3/util/uint128"
 
-	"github.com/virel-project/go-randomvirel"
+	"github.com/litedag-chain/go-randomlitedag"
 )
 
 var Log *logger.Log = logger.DiscardLog
@@ -64,7 +64,7 @@ type ConnData struct {
 type MinerJob struct {
 	JobID string
 	Block *block.Block
-	Seed  randomvirel.Seed
+	Seed  randomlitedag.Seed
 }
 
 func (s *Server) StartStratum(ip string, port uint16) error {
@@ -156,7 +156,7 @@ func (s *Server) SendJob(bl *block.Block, diff uint128.Uint128) {
 						JsonRpc: "2.0",
 						Method:  "job",
 						Params: stratum.Job{
-							Algo:     "rx/vrl",
+							Algo:     "rx/litedag",
 							Blob:     blob.Serialize(),
 							JobID:    jobid,
 							Target:   target,

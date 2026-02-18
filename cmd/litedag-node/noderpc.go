@@ -9,21 +9,21 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/virel-project/virel-blockchain/v3/adb"
-	"github.com/virel-project/virel-blockchain/v3/address"
-	"github.com/virel-project/virel-blockchain/v3/bitcrypto"
-	"github.com/virel-project/virel-blockchain/v3/block"
-	"github.com/virel-project/virel-blockchain/v3/blockchain"
-	"github.com/virel-project/virel-blockchain/v3/chaintype"
-	"github.com/virel-project/virel-blockchain/v3/config"
-	"github.com/virel-project/virel-blockchain/v3/p2p/packet"
-	"github.com/virel-project/virel-blockchain/v3/rpc"
-	"github.com/virel-project/virel-blockchain/v3/rpc/daemonrpc"
-	"github.com/virel-project/virel-blockchain/v3/rpc/rpcserver"
-	"github.com/virel-project/virel-blockchain/v3/transaction"
-	"github.com/virel-project/virel-blockchain/v3/util"
+	"github.com/litedag-chain/litedag-blockchain/v3/adb"
+	"github.com/litedag-chain/litedag-blockchain/v3/address"
+	"github.com/litedag-chain/litedag-blockchain/v3/bitcrypto"
+	"github.com/litedag-chain/litedag-blockchain/v3/block"
+	"github.com/litedag-chain/litedag-blockchain/v3/blockchain"
+	"github.com/litedag-chain/litedag-blockchain/v3/chaintype"
+	"github.com/litedag-chain/litedag-blockchain/v3/config"
+	"github.com/litedag-chain/litedag-blockchain/v3/p2p/packet"
+	"github.com/litedag-chain/litedag-blockchain/v3/rpc"
+	"github.com/litedag-chain/litedag-blockchain/v3/rpc/daemonrpc"
+	"github.com/litedag-chain/litedag-blockchain/v3/rpc/rpcserver"
+	"github.com/litedag-chain/litedag-blockchain/v3/transaction"
+	"github.com/litedag-chain/litedag-blockchain/v3/util"
 
-	"github.com/virel-project/go-randomvirel"
+	"github.com/litedag-chain/go-randomlitedag"
 )
 
 type RpcServer struct {
@@ -792,7 +792,7 @@ func startRpc(bc *blockchain.Blockchain, ip string, port uint16, restricted bool
 				return
 			}
 
-			hash := randomvirel.PowHash(randomvirel.Seed(params.SeedHash), params.Blob)
+			hash := randomlitedag.PowHash(randomlitedag.Seed(params.SeedHash), params.Blob)
 			c.SuccessResponse(daemonrpc.CalcPowResponse{
 				Hash: hash,
 			})
