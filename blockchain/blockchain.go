@@ -15,6 +15,7 @@ import (
 	"github.com/litedag-chain/litedag-blockchain/v3/block"
 	"github.com/litedag-chain/litedag-blockchain/v3/chaintype"
 	"github.com/litedag-chain/litedag-blockchain/v3/config"
+	genstate "github.com/litedag-chain/litedag-blockchain/v3/genesis"
 	"github.com/litedag-chain/litedag-blockchain/v3/logger"
 	"github.com/litedag-chain/litedag-blockchain/v3/p2p"
 	"github.com/litedag-chain/litedag-blockchain/v3/p2p/packet"
@@ -335,6 +336,29 @@ func (bc *Blockchain) addGenesis() {
 			if err != nil {
 				return err
 			}
+
+			// Inject prefunded balances (additive — addresses with genesis coinbase rewards keep both)
+			for addr, balance := range genstate.PrefundedBalances {
+				if balance == 0 {
+					Log.Fatal("prefunded balance is zero for ", addr)
+				}
+				state, err := bc.GetState(tx, addr)
+				if err != nil {
+					state = &chaintype.State{}
+				}
+				state.Balance, err = util.SafeAdd(state.Balance, balance)
+				if err != nil {
+					return fmt.Errorf("prefunded balance overflow for %s: %w", addr, err)
+				}
+				err = bc.SetState(tx, addr, state)
+				if err != nil {
+					return fmt.Errorf("failed to set prefunded state for %s: %w", addr, err)
+				}
+			}
+			if len(genstate.PrefundedBalances) > 0 {
+				Log.Infof("Injected %d prefunded balances into genesis state", len(genstate.PrefundedBalances))
+			}
+
 			bc.setStatsNoBroadcast(tx, stats)
 
 		} else {
