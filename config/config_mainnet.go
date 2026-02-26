@@ -9,16 +9,16 @@ const NETWORK_ID uint64 = 0x4f2102a9dc2b9d81 // Network identifier. It MUST be u
 
 const NETWORK_NAME = "mainnet"
 
-const MIN_DIFFICULTY = 100_000
+const MIN_DIFFICULTY = 1_000
 const DIFFICULTY_N = 120 // DAA half-life (30 minutes).
 
-// GENESIS BLOCK INFO
-const GENESIS_ADDRESS = "v139diixrpv0ftmip4mgpuy92u51iq4pnmgjsfn"   // FIXME: replace with client wallet address (key ceremony)
-const GENESIS_TIMESTAMP = 1755522000 * 1000                          // FIXME: replace with launch timestamp
+// GENESIS BLOCK INFO — throwaway testnet wallet
+const GENESIS_ADDRESS = "vnjck6jmrkdyuac15jukzlm4phaz5lus9owma3"
+const GENESIS_TIMESTAMP = 1772110000 * 1000 // 2026-02-25
 const BLOCK_REWARD_FEE_PERCENT = 10
-const TEAM_STAKE_PUBKEY = "3959a30cb83649dd38389dd6717cbadab6ceb92cd9e4c4352abfcf168bbf592e" // FIXME: replace with client staking pubkey (key ceremony)
+const TEAM_STAKE_PUBKEY = "42eb14ec9e7655fcc5952c1ca965f26f8959113996eece606149f12223d2503e"
 
-var SEED_NODES = []string{"127.0.0.1"} // FIXME: replace with production node IPs
+var SEED_NODES = []string{"46.17.96.29"}
 
 // Addresses blocked from ALL transactions (transfers, staking, delegate ops).
 // Only outbound (signer) is checked — receiving LDG still works, making these burn addresses.
