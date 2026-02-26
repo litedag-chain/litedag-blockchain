@@ -307,6 +307,41 @@ func startRpcServer(w *wallet.Wallet, ip string, port uint16, auth string) {
 		})
 	})
 
+	rs.Handle("register_delegate_transaction", func(c *rpcserver.Context) {
+		params := walletrpc.RegisterDelegateTransactionRequest{}
+		err := c.GetParams(&params)
+		if err != nil {
+			return
+		}
+
+		err = w.Refresh()
+		if err != nil {
+			Log.Warn(err)
+			c.ErrorResponse(&rpc.Error{
+				Code:    -1,
+				Message: "refresh failed",
+			})
+			return
+		}
+
+		tx, err := w.RegisterDelegate(params.Name, params.DelegateId)
+		if err != nil {
+			Log.Warn(err)
+			c.ErrorResponse(&rpc.Error{
+				Code:    -2,
+				Message: "register delegate failed",
+			})
+			return
+		}
+		Log.Info("Created register_delegate transaction from RPC:", tx.String())
+
+		c.SuccessResponse(walletrpc.CreateTransactionResponse{
+			TxBlob: tx.Serialize(),
+			TXID:   util.Hash(tx.Hash()),
+			Fee:    tx.Fee,
+		})
+	})
+
 	rs.Handle("set_delegate_transaction", func(c *rpcserver.Context) {
 		params := walletrpc.SetDelegateTransactionRequest{}
 		err := c.GetParams(&params)
