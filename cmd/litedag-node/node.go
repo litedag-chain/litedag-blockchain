@@ -10,6 +10,7 @@ import (
 
 	"github.com/litedag-chain/litedag-blockchain/v3/adb"
 	"github.com/litedag-chain/litedag-blockchain/v3/adb/lmdb"
+	"github.com/litedag-chain/litedag-blockchain/v3/address"
 	"github.com/litedag-chain/litedag-blockchain/v3/blockchain"
 	"github.com/litedag-chain/litedag-blockchain/v3/config"
 	"github.com/litedag-chain/litedag-blockchain/v3/logger"
@@ -44,6 +45,7 @@ func main() {
 	private := flag.Bool("private", false, "if set, your ip is not advertised to the network")
 	exclusive := flag.Bool("exclusive", false, "if set, the node will not connect to suggested nodes")
 	non_interactive := flag.Bool("non-interactive", false, "if set, the node will not process the stdinput. Useful for running as a service.")
+	mine := flag.String("mine", "", "start built-in CPU miner for this address (implies --non-interactive)")
 	data_dir := flag.String("data-dir", defaultDataDir, "sets the data directory which contains blockchain and peer list")
 	add_nodes := flag.String("add-nodes", "", "comma separated list of node P2P addresses")
 	no_update_check := flag.Bool("no-update-check", false, "disables update checking")
@@ -143,7 +145,15 @@ func main() {
 		Log.Err("failed to check for reorgs:", err)
 	}
 
-	if !*non_interactive {
+	if len(*mine) > 0 {
+		addr, err := address.FromString(*mine)
+		if err != nil {
+			Log.Fatal("invalid --mine address:", *mine)
+		}
+		Log.Info("Starting built-in CPU miner for", *mine)
+		go bc.StartMining(addr.Addr)
+		CheckPeers(bc)
+	} else if !*non_interactive {
 		go CheckPeers(bc)
 		prompts(bc)
 	} else {
