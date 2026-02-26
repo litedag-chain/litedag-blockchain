@@ -58,6 +58,11 @@ type CreateTransactionResponse struct {
 	Fee    uint64    `json:"fee"`
 }
 
+type RegisterDelegateTransactionRequest struct {
+	DelegateId uint64 `json:"delegate_id"`
+	Name       string `json:"name"`
+}
+
 type SetDelegateTransactionRequest struct {
 	DelegateId uint64 `json:"delegate_id"`
 }
