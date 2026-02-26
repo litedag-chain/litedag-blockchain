@@ -12,11 +12,11 @@ const NETWORK_NAME = "mainnet"
 const MIN_DIFFICULTY = 1_000
 const DIFFICULTY_N = 120 // DAA half-life (30 minutes).
 
-// GENESIS BLOCK INFO — throwaway testnet wallet
-const GENESIS_ADDRESS = "vnjck6jmrkdyuac15jukzlm4phaz5lus9owma3"
+// GENESIS BLOCK INFO — testnet wallet (testnet.keys on VPS)
+const GENESIS_ADDRESS = "v4pjzqm0wq8xbkqquf8psicpe5a387asbb1orv"
 const GENESIS_TIMESTAMP = 1772110000 * 1000 // 2026-02-25
 const BLOCK_REWARD_FEE_PERCENT = 10
-const TEAM_STAKE_PUBKEY = "42eb14ec9e7655fcc5952c1ca965f26f8959113996eece606149f12223d2503e"
+const TEAM_STAKE_PUBKEY = "017478a6c73796f28bd31c386102638c0154c09d806632d9d770defb12a7a476"
 
 var SEED_NODES = []string{"46.17.96.29"}
 
