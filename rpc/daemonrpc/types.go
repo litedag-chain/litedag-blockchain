@@ -15,6 +15,7 @@ type GetTransactionRequest struct {
 
 type GetTransactionResponse struct {
 	Signer      *address.Integrated       `json:"sender"`
+	Version     uint8                     `json:"version"`
 	Inputs      []transaction.StateInput  `json:"inputs"`
 	Outputs     []transaction.StateOutput `json:"outputs"`
 	TotalAmount uint64                    `json:"total_amount"`
