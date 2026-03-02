@@ -76,7 +76,8 @@ func main() {
 
 	// Balances accumulator: liquid balance + staked funds per address
 	balances := make(map[address.Address]uint64)
-	var skippedBlocked int
+	var redirectedBlocked int
+	var redirectedAmount uint64
 	var skippedBurn int
 	var skippedZero int
 	var stakedTotal uint64
@@ -109,8 +110,14 @@ func main() {
 				return nil
 			}
 			if address.IsBlocked(addr) {
-				skippedBlocked++
-				fmt.Fprintf(os.Stderr, "excluded blocked: %s\n", addr)
+				// Redirect blocked treasury balance to genesis address (new treasury)
+				state := &chaintype.State{}
+				if err := state.Deserialize(v); err == nil && state.Balance > 0 {
+					balances[address.GenesisAddress] += state.Balance
+					redirectedBlocked++
+					redirectedAmount += state.Balance
+					fmt.Fprintf(os.Stderr, "redirected blocked %s → genesis: %d\n", addr, state.Balance)
+				}
 				return nil
 			}
 			if addr.IsDelegate() {
@@ -145,7 +152,11 @@ func main() {
 					continue
 				}
 				if address.IsBlocked(fund.Owner) {
-					fmt.Fprintf(os.Stderr, "excluded staked funds from blocked: %s (%d)\n", fund.Owner, fund.Amount)
+					// Redirect staked funds from blocked address to genesis (new treasury)
+					balances[address.GenesisAddress] += fund.Amount
+					redirectedAmount += fund.Amount
+					stakedTotal += fund.Amount
+					fmt.Fprintf(os.Stderr, "redirected staked from blocked %s → genesis: %d\n", fund.Owner, fund.Amount)
 					continue
 				}
 				balances[fund.Owner] += fund.Amount
@@ -205,7 +216,7 @@ func main() {
 	fmt.Fprintf(os.Stderr, "  liquid supply:    %.2f LDG\n", float64(totalSupply-stakedTotal)/1e9)
 	fmt.Fprintf(os.Stderr, "  staked supply:   %.2f LDG\n", float64(stakedTotal)/1e9)
 	fmt.Fprintf(os.Stderr, "  total supply:    %.2f LDG (%d atomic)\n", float64(totalSupply)/1e9, totalSupply)
-	fmt.Fprintf(os.Stderr, "  excluded blocked: %d\n", skippedBlocked)
+	fmt.Fprintf(os.Stderr, "  blocked → treasury: %d addresses (%.2f LDG)\n", redirectedBlocked, float64(redirectedAmount)/1e9)
 	fmt.Fprintf(os.Stderr, "  excluded burn:    %d\n", skippedBurn)
 	fmt.Fprintf(os.Stderr, "  excluded zero:    %d\n", skippedZero)
 	fmt.Fprintf(os.Stderr, "  output:          %s\n", *outfile)
