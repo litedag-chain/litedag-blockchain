@@ -18,7 +18,7 @@ const GENESIS_TIMESTAMP = 1755522000 * 1000                          // FIXME: r
 const BLOCK_REWARD_FEE_PERCENT = 10
 const TEAM_STAKE_PUBKEY = "3959a30cb83649dd38389dd6717cbadab6ceb92cd9e4c4352abfcf168bbf592e" // FIXME: replace with client staking pubkey (key ceremony)
 
-var SEED_NODES = []string{"127.0.0.1"} // FIXME: replace with production node IPs
+var SEED_NODES = []string{"node.litedag.com"}
 
 // Addresses blocked from ALL transactions (transfers, staking, delegate ops).
 // Only outbound (signer) is checked — receiving LDG still works, making these burn addresses.
