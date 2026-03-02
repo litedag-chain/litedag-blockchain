@@ -4,6 +4,20 @@
 
 LiteDAG is a fork of Virel (VRL). Old VRL holders get their balances on the new chain via a 1:1 snapshot injected at genesis. Users do nothing — same seed phrase, same address, balance is there.
 
+## Decisions (2026-03-02)
+
+**Snapshot timing: unannounced.** The snapshot is taken without prior announcement, then the snapshot height is published retroactively after LiteDAG launches. This prevents front-running (accumulating VRL before a known snapshot date).
+
+**Balance migration: 1:1 automatic, no claim period.** Every VRL address with a balance at the snapshot height gets an identical LDG balance at genesis. Users open LiteDAG wallet with their existing VRL seed phrase — balance is there. No claiming, no deadline, no expiration. This was chosen over a claim period because:
+- Claim deadlines punish patient holders who discover LiteDAG later
+- "Inactive" wallets are indistinguishable from long-term holders
+- Dead wallet supply is effectively burned (lost keys = lost funds, same as Bitcoin)
+- Zero friction onboarding: same seed, same address, balance is there
+
+**Old treasury: redirected to new treasury.** The old Virel treasury balance (liquid + staked) is not excluded — it is redirected to `GENESIS_ADDRESS` (the client's new cold wallet). The old treasury address remains blocked from spending on LiteDAG. This funds the new LiteDAG treasury from the old one without any supply inflation.
+
+**Seed phrase security: unchanged, verified safe.** The key derivation (BIP-39 → SLIP-10 → Ed25519) uses standard Go libraries (`crypto/rand`, `golang.org/x/crypto`). The old founder wrote no custom crypto code. Test vectors were cross-referenced against the SLIP-0010 spec during the security audit. Users' seeds are safe to reuse.
+
 ## Architecture
 
 ```
@@ -60,7 +74,7 @@ Genesis block created → prefunded balances injected → CheckSupply passes
 
 ## Taint policy
 
-- **Blocked:** Old Virel treasury (`v139diixrpv0ftmip4mgpuy92u51iq4pnmgjsfn`). Excluded from snapshot by `address.IsBlocked()`.
+- **Redirected:** Old Virel treasury (`v139diixrpv0ftmip4mgpuy92u51iq4pnmgjsfn`) — liquid balance + staked funds redirected to `GENESIS_ADDRESS` (new LiteDAG treasury). The old address remains blocked from spending on LiteDAG.
 - **Not blocked:** Downstream recipients of treasury funds. In an account-based model, funds mix in accounts — there's no clean way to separate "tainted" from "clean" balance without deep chain analysis and arbitrary cutoffs. The founder already dumped (sold to exchanges), so 1st-hop addresses are mostly exchange hot wallets. Blocking those would punish innocent users.
 - **Burn address:** Excluded (zero-value address, internal accounting).
 - **Delegate addresses:** Excluded (internal staking accounting, not user balances).
@@ -88,7 +102,7 @@ The tool reads:
 
 Both are credited to the owner as liquid LDG on the new chain. Stakers don't lose their staked VRL in migration.
 
-The tool filters out: blocked addresses (treasury), burn address, delegate internal addresses, zero balances. Output is sorted by address string for deterministic, diffable results.
+The tool redirects blocked address balances (old treasury) to `GENESIS_ADDRESS` (new treasury), and excludes burn address, delegate internal addresses, and zero balances. Output is sorted by address string for deterministic, diffable results.
 
 After running, commit the generated `genesis/prefunded.go` and rebuild the node binary.
 
@@ -102,7 +116,8 @@ This work lives on the `genesis` branch until the snapshot data is populated and
 - [ ] Node builds and boots with prefunded balances
 - [ ] `CheckSupply` passes in debug mode
 - [ ] Known old VRL address verified via RPC `get_address`
-- [ ] Old treasury verified excluded (zero balance, blocked from sending)
+- [ ] Old treasury balance redirected to `GENESIS_ADDRESS` (new treasury)
+- [ ] Old treasury address blocked from spending (zero usable balance)
 
 ## TTL and cleanup plan
 
@@ -138,6 +153,5 @@ git commit -m "chore: remove migration data, keep genesis prefunded infrastructu
 
 ## Dependencies
 
-- Access to a synced old Virel node (client has nodes/miners)
-- Agreed snapshot height (last block, or a specific agreed-upon height)
-- VPS access restored (for deployment — currently blocked by provider)
+- Access to a synced old Virel node's data directory (client has nodes/miners)
+- Production key ceremony (`GENESIS_ADDRESS`, `TEAM_STAKE_PUBKEY`, `GENESIS_TIMESTAMP`)
