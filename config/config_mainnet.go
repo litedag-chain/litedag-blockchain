@@ -18,7 +18,7 @@ const GENESIS_TIMESTAMP = 1772110000 * 1000 // 2026-02-25
 const BLOCK_REWARD_FEE_PERCENT = 10
 const TEAM_STAKE_PUBKEY = "017478a6c73796f28bd31c386102638c0154c09d806632d9d770defb12a7a476"
 
-var SEED_NODES = []string{"46.17.96.29"}
+var SEED_NODES = []string{"node.litedag.com"}
 
 // Addresses blocked from ALL transactions (transfers, staking, delegate ops).
 // Only outbound (signer) is checked — receiving LDG still works, making these burn addresses.
