@@ -2,6 +2,7 @@ package block
 
 import (
 	"github.com/litedag-chain/litedag-blockchain/v3/config"
+	"github.com/litedag-chain/litedag-blockchain/v3/genesis"
 )
 
 func reduce(n, count uint64) uint64 {
@@ -38,5 +39,5 @@ func GetSupplyAtHeight(height uint64) uint64 {
 	reductions := height / config.REDUCTION_INTERVAL
 	reductionBlocks := height%config.REDUCTION_INTERVAL + 1
 	phaseSupply := supplyAtPhase(reductions)
-	return phaseSupply + Reward(height)*reductionBlocks
+	return phaseSupply + Reward(height)*reductionBlocks + genesis.PrefundedSupply
 }
