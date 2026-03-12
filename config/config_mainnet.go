@@ -13,10 +13,10 @@ const MIN_DIFFICULTY = 100_000
 const DIFFICULTY_N = 120 // DAA half-life (30 minutes).
 
 // GENESIS BLOCK INFO
-const GENESIS_ADDRESS = "v139diixrpv0ftmip4mgpuy92u51iq4pnmgjsfn"   // FIXME: replace with client wallet address (key ceremony)
-const GENESIS_TIMESTAMP = 1755522000 * 1000                          // FIXME: replace with launch timestamp
+const GENESIS_ADDRESS = "v15oxps781teqfug0f2ig4031y9zotogrokjjy0"
+const GENESIS_TIMESTAMP = 1755522000 * 1000                          // FIXME: set to launch time
 const BLOCK_REWARD_FEE_PERCENT = 10
-const TEAM_STAKE_PUBKEY = "3959a30cb83649dd38389dd6717cbadab6ceb92cd9e4c4352abfcf168bbf592e" // FIXME: replace with client staking pubkey (key ceremony)
+const TEAM_STAKE_PUBKEY = "198ee3e69f5db0889f56bc5777dc101612b243eb42444b884bdabca801c024d7" // pubkey for v9206blqmfld0p1z73rv43lt6rvf33r22j72ts — reserves delegate ID 1
 
 var SEED_NODES = []string{"node.litedag.com"}
 
