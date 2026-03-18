@@ -23,7 +23,13 @@ var SEED_NODES = []string{"node.litedag.com"}
 // Addresses blocked from ALL transactions (transfers, staking, delegate ops).
 // Only outbound (signer) is checked — receiving LDG still works, making these burn addresses.
 // Old Virel treasury: key not accessible, funds permanently locked.
-var BLOCKED_ADDRESSES = []string{"v139diixrpv0ftmip4mgpuy92u51iq4pnmgjsfn"}
+var BLOCKED_ADDRESSES = []string{
+	"v139diixrpv0ftmip4mgpuy92u51iq4pnmgjsfn", // old Virel treasury
+	"vcywy29s703885w3fc2uvvemv8gybj2yrrlfpz",  // founder wallet (281k from treasury)
+	"v14h12wnbwyct2bycxfru8p7fw8z3vl98em9klh",  // founder wallet (350k from treasury)
+	"v14z8srqrig7ffqfzy61yomuiywjluw3ooh6uj1",  // founder wallet (791k from treasury)
+	"vraabvgm9z13caa9rm5ivyoofxvsy1fd9iqm6q",   // founder wallet (1.3M from treasury)
+}
 
 // PROOF OF STAKE
 const MIN_STAKE_AMOUNT = 100 * COIN
