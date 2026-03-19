@@ -17,13 +17,17 @@ func (b Block) Reward() uint64 {
 }
 
 func Reward(height uint64) uint64 {
-	// supply reduction every 60 days (2 months)
+	// supply reduction every 91 days (one season)
 	reductions := height / config.REDUCTION_INTERVAL
 	if reductions == 0 {
 		return config.BLOCK_REWARD
 	}
 
-	return reduce(config.BLOCK_REWARD, reductions-1)
+	r := reduce(config.BLOCK_REWARD, reductions-1)
+	if r < config.TAIL_EMISSION {
+		return config.TAIL_EMISSION
+	}
+	return r
 }
 
 func supplyAtPhase(reductions uint64) uint64 {

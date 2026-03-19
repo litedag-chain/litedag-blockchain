@@ -32,7 +32,7 @@ var BLOCKED_ADDRESSES = []string{
 }
 
 // PROOF OF STAKE
-const MIN_STAKE_AMOUNT = 100 * COIN
+const MIN_STAKE_AMOUNT = 10_000 * COIN
 const REGISTER_DELEGATE_BURN = 1_000 * COIN
 const STAKE_UNLOCK_TIME = 60 * 60 * 24 * 30 * 2 / TARGET_BLOCK_TIME // staked funds unlock after 2 months
 
