@@ -16,6 +16,7 @@ import (
 	"github.com/litedag-chain/litedag-blockchain/v3/blockchain"
 	"github.com/litedag-chain/litedag-blockchain/v3/chaintype"
 	"github.com/litedag-chain/litedag-blockchain/v3/config"
+	"github.com/litedag-chain/litedag-blockchain/v3/genesis"
 	"github.com/litedag-chain/litedag-blockchain/v3/p2p/packet"
 	"github.com/litedag-chain/litedag-blockchain/v3/rpc"
 	"github.com/litedag-chain/litedag-blockchain/v3/rpc/daemonrpc"
@@ -335,8 +336,8 @@ func startRpc(bc *blockchain.Blockchain, ip string, port uint16, restricted bool
 			TotalSupply:       supply,
 			CirculatingSupply: supply - burnState.Balance,
 			Stake:             stats.StakedAmount,
-			MaxSupply:         config.MAX_SUPPLY,
-			SupplyCap:         config.MAX_SUPPLY - burnState.Balance,
+			MaxSupply:         config.MAX_SUPPLY + genesis.PrefundedSupply,
+			SupplyCap:         config.MAX_SUPPLY + genesis.PrefundedSupply - burnState.Balance,
 			Burned:            burnState.Balance,
 			Coin:              config.COIN,
 			Difficulty:        topBl.Difficulty.String(),
