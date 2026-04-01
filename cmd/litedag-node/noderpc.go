@@ -701,6 +701,28 @@ func startRpc(bc *blockchain.Blockchain, ip string, port uint16, restricted bool
 		})
 	})
 
+	rs.Handle("get_delegates", func(c *rpcserver.Context) {
+		var delegates []daemonrpc.GetDelegateResponse
+		err := bc.DB.View(func(txn adb.Txn) error {
+			return bc.GetDelegates(txn, func(d *chaintype.Delegate) (bool, error) {
+				delegates = append(delegates, daemonrpc.GetDelegateResponse{
+					Id:          d.Id,
+					Address:     address.NewDelegateAddress(d.Id),
+					Owner:       d.OwnerAddress(),
+					TotalAmount: d.TotalAmount(),
+					Name:        string(d.Name),
+					Funds:       d.Funds,
+				})
+				return false, nil
+			})
+		})
+		if err != nil {
+			c.ErrorResponse(&rpc.Error{Code: internalReadFailed, Message: "failed to list delegates"})
+			return
+		}
+		c.SuccessResponse(delegates)
+	})
+
 	if !restricted {
 		rs.Handle("get_rich_list", func(c *rpcserver.Context) {
 			const COUNT = 100
