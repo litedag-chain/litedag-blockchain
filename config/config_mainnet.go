@@ -14,9 +14,9 @@ const DIFFICULTY_N = 120 // DAA half-life (30 minutes).
 
 // GENESIS BLOCK INFO
 const GENESIS_ADDRESS = "v15oxps781teqfug0f2ig4031y9zotogrokjjy0"
-const GENESIS_TIMESTAMP = 1773949089 * 1000                          // 2026-03-19
+const GENESIS_TIMESTAMP = 1775064600 * 1000                          // 2026-04-01
 const BLOCK_REWARD_FEE_PERCENT = 10
-const TEAM_STAKE_PUBKEY = "198ee3e69f5db0889f56bc5777dc101612b243eb42444b884bdabca801c024d7" // pubkey for v9206blqmfld0p1z73rv43lt6rvf33r22j72ts — reserves delegate ID 1
+const TEAM_STAKE_PUBKEY = "226844dd3912b44771eb35765ba01c764cdf907e042b4dd4ecef7829931a055f" // pubkey for vqll28qile64ubl3erplheiyz0ozr2yzv545mx — reserves delegate ID 1
 
 var SEED_NODES = []string{"node.litedag.com"}
 
