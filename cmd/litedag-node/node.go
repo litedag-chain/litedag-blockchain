@@ -15,6 +15,8 @@ import (
 	"github.com/litedag-chain/litedag-blockchain/v3/config"
 	"github.com/litedag-chain/litedag-blockchain/v3/logger"
 	"github.com/litedag-chain/litedag-blockchain/v3/util/updatechecker"
+
+	"golang.org/x/term"
 )
 
 var Log = logger.New()
@@ -153,7 +155,7 @@ func main() {
 		Log.Info("Starting built-in CPU miner for", *mine)
 		go bc.StartMining(addr.Addr)
 		CheckPeers(bc)
-	} else if !*non_interactive && isTerminal() {
+	} else if !*non_interactive && term.IsTerminal(int(os.Stdin.Fd())) {
 		go CheckPeers(bc)
 		prompts(bc)
 	} else {
@@ -162,14 +164,6 @@ func main() {
 		}
 		CheckPeers(bc)
 	}
-}
-
-func isTerminal() bool {
-	fi, err := os.Stdin.Stat()
-	if err != nil {
-		return false
-	}
-	return fi.Mode()&os.ModeCharDevice != 0
 }
 
 func CheckPeers(bc *blockchain.Blockchain) {
