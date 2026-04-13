@@ -4,6 +4,7 @@ import (
 	"crypto/rand"
 	"fmt"
 	"math"
+	"sort"
 	"time"
 
 	"github.com/litedag-chain/go-randomlitedag"
@@ -150,12 +151,36 @@ func (bc *Blockchain) GetBlockTemplate(txn adb.Txn, addr address.Address) (*bloc
 		}
 	}
 
-	// TODO: sort mempool transactions by Fee Per Kilobyte, to prioritize the transactions with higher fee
-	// possibly also take in account transaction age in the sorting algorithm
+	// Sort mempool by fee-per-byte (highest first), preserving nonce order per sender.
 	mem := bc.GetMempool(txn)
+
+	// Record original index so same-sender txs keep submission order (nonce-safe).
+	type indexed struct {
+		entry *MempoolEntry
+		order int
+	}
+	tmp := make([]indexed, len(mem.Entries))
+	for i, e := range mem.Entries {
+		tmp[i] = indexed{e, i}
+	}
+	sort.SliceStable(tmp, func(i, j int) bool {
+		a, b := tmp[i], tmp[j]
+		// Same signer: preserve original order (nonce ascending)
+		if a.entry.Signer == b.entry.Signer {
+			return a.order < b.order
+		}
+		// Different signers: highest fee-per-byte first (cross-multiply to avoid float)
+		return a.entry.Fee*b.entry.Size > b.entry.Fee*a.entry.Size
+	})
+	sorted := make([]*MempoolEntry, len(tmp))
+	for i, v := range tmp {
+		sorted[i] = v.entry
+	}
+
 	var totsize uint64 = 0
-	validEntries := make([]*MempoolEntry, 0, len(mem.Entries))
-	for _, v := range mem.Entries {
+	validEntries := make([]*MempoolEntry, 0, len(sorted))
+	skipped := make([]*MempoolEntry, 0)
+	for _, v := range sorted {
 		if totsize+v.Size > config.MAX_BLOCK_SIZE {
 			break
 		}
@@ -168,6 +193,7 @@ func (bc *Blockchain) GetBlockTemplate(txn adb.Txn, addr address.Address) (*bloc
 		err = bc.validateMempoolTx(txn, memtx, v.TXID, validEntries, bl.Height)
 		if err != nil {
 			Log.Warn("GetBlockTemplate: validateMempoolTx error:", err)
+			skipped = append(skipped, v)
 			continue
 		}
 
@@ -175,12 +201,11 @@ func (bc *Blockchain) GetBlockTemplate(txn adb.Txn, addr address.Address) (*bloc
 		bl.Transactions = append(bl.Transactions, v.TXID)
 		validEntries = append(validEntries, v)
 	}
-	if len(mem.Entries) != len(validEntries) {
-		mem.Entries = validEntries
-		err = bc.SetMempool(txn, mem)
-		if err != nil {
-			Log.Warn(err)
-		}
+	// Keep skipped txs in mempool — they may become valid once their dependencies confirm.
+	mem.Entries = append(validEntries, skipped...)
+	err = bc.SetMempool(txn, mem)
+	if err != nil {
+		Log.Warn(err)
 	}
 
 	bl.CumulativeDiff = stats.CumulativeDiff.Add(bl.ContributionToCumulativeDiff())
