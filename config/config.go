@@ -8,9 +8,14 @@ const VERSION_MAJOR = 3
 const VERSION_MINOR = 3
 const VERSION_PATCH = 1
 
-const COIN = 1_000_000_000                     // 1e9
-const FEE_PER_BYTE = 500_000                   // 0.0615 coins for an 1-output tx
-const FEE_PER_BYTE_V2 = 2_000_000              // 0.246 coins for an 1-output tx
+const COIN = 1_000_000_000        // 1e9
+const FEE_PER_BYTE = 500_000      // 0.0615 coins for an 1-output tx
+const FEE_PER_BYTE_V2 = 2_000_000 // 0.246 coins for an 1-output tx
+// ~0.01 coins for an 1-output tx, would be set on node level. FeePerByteV4 may be set at node startup.
+const DEFAULT_FEE_PER_BYTE_V4 = 100_000 // ~0.01 coins for an 1-output tx
+
+var FeePerByteV4 uint64 = DEFAULT_FEE_PER_BYTE_V4
+
 const BLOCK_REWARD = 20 * COIN                 // initial block reward (reduced from 175 to lower selling pressure)
 const TAIL_EMISSION = 1 * COIN                  // perpetual minimum reward per block
 const REDUCTION_INTERVAL = BLOCKS_PER_DAY * 91 // block reward reduces by 10% every 91 days (4 times a year)

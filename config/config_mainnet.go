@@ -46,3 +46,6 @@ const HARDFORK_V2_HEIGHT = 1
 // Active from genesis (height 1) on LiteDAG chain.
 // Tx version: 1-5, block version: 1
 const HARDFORK_V3_HEIGHT = 1
+
+// Hardfork V4: Minimum fee on node level.
+const HARDFORK_V4_HEIGHT = 150_000
