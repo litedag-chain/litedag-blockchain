@@ -51,6 +51,7 @@ func main() {
 	data_dir := flag.String("data-dir", defaultDataDir, "sets the data directory which contains blockchain and peer list")
 	add_nodes := flag.String("add-nodes", "", "comma separated list of node P2P addresses")
 	no_update_check := flag.Bool("no-update-check", false, "disables update checking")
+	fee_per_byte := flag.Uint64("fee-per-byte-v3", config.DEFAULT_FEE_PER_BYTE_V4, "minimum fee per virtual byte on node level, hardfork V4")
 
 	var slavechains_stratums *string
 	var stratum_wallet *string
@@ -60,6 +61,8 @@ func main() {
 	}
 
 	flag.Parse()
+
+	config.FeePerByteV4 = *fee_per_byte
 
 	if !*no_update_check {
 		go updatechecker.RunUpdateChecker(Log, config.UPDATE_CHECK_URL, config.VERSION_MAJOR, config.VERSION_MINOR, config.VERSION_PATCH)
@@ -87,6 +90,7 @@ func main() {
 	Log.Info("Starting", config.NETWORK_NAME, "node")
 	Log.Info("Network ID:", config.NETWORK_ID)
 	Log.Infof("Version: %d.%d.%d", config.VERSION_MAJOR, config.VERSION_MINOR, config.VERSION_PATCH)
+	Log.Infof("Node level fee per byte (V4 hardfork): %d", config.FeePerByteV4)
 	if config.NETWORK_NAME != "mainnet" {
 		Log.Warn("This is a", strings.ToUpper(config.NETWORK_NAME), "node, only for testing the blockchain.")
 		Log.Warn("Be aware that any amount transacted in", config.NETWORK_NAME, "is worthless.")

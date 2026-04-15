@@ -176,6 +176,8 @@ func (t *Transaction) Prevalidate(height uint64) error {
 	var fee_per_byte uint64 = config.FEE_PER_BYTE
 	if height >= config.HARDFORK_V3_HEIGHT {
 		fee_per_byte = config.FEE_PER_BYTE_V2
+	} else if height >= config.HARDFORK_V4_HEIGHT {
+		fee_per_byte = 0
 	}
 	if t.Fee < fee_per_byte*vsize {
 		return fmt.Errorf("invalid transaction fee: got %d, expected at least %d", t.Fee,

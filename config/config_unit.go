@@ -30,3 +30,4 @@ const STAKE_UNLOCK_TIME = 10 // staked funds unlock after 10 blocks
 // HARD-FORKS
 const HARDFORK_V2_HEIGHT = 1
 const HARDFORK_V3_HEIGHT = 1
+const HARDFORK_V4_HEIGHT = 2
